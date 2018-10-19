@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_videocam_black_24dp"
+            android:title="Camaras" />
+        <item
+            android:id="@+id/nav_lights"
+            android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+            android:title="Focos" />
+        <item
+            android:id="@+id/nav_status"
+            android:icon="@drawable/ic_router_black_24dp"
+            android:title="Estado de los sensores" />
+        <item
+            android:id="@+id/nav_config"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Configuración de los sensores" />
+    </group>
+
+    <item android:title="SmartHouse">
+        <menu>
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_supervisor_account_black_24dp"
+                android:title="Ayuda" />
+            <item
+                android:id="@+id/nav_info"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="Sobre nosotros" />
+        </menu>
+    </item>
+
+</menu>

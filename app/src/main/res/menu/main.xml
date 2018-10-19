@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/on_off"
+        android:orderInCategory="100"
+        android:title="@string/onoff"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sensor_mov"
+        android:orderInCategory="100"
+        android:title="@string/sensor_mov"
+        app:showAsAction="never" />
+</menu>
