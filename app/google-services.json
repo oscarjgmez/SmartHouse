@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1027236325711",
+    "firebase_url": "https://smarthouse-60a30.firebaseio.com",
+    "project_id": "smarthouse-60a30",
+    "storage_bucket": "smarthouse-60a30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027236325711:android:47b9fa211a04ee35",
+        "android_client_info": {
+          "package_name": "jellyloment.smarthouse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027236325711-kbjij8ek4u9nauiub1cru6log4m74cva.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqnfeq5lhuVbhIBih1JdzVEj5CYqhBnaE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
