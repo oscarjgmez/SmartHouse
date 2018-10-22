@@ -40,12 +40,19 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     public void ChecarUsuario(){
-        if(txtcorreo.getText().toString().equals("") && txtcontra.getText().toString().equals(""))
+        if(!txtcorreo.getText().toString().equals("")  )
         {
-           Toast.makeText(this,"Favor de insertar datos en ambos campos",Toast.LENGTH_SHORT).show();
+            if (!txtcontra.getText().toString().equals(""))
+            {
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            }
+            else
+                {
+                    Toast.makeText(this,"Favor de insertar datos en ambos campos",Toast.LENGTH_SHORT).show();
+                }
         }
         else {
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+             Toast.makeText(this,"Favor de insertar datos en ambos campos",Toast.LENGTH_SHORT).show();
         }
     }
 }
