@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private String txtMail,txtPass;
 
     private DatabaseReference mDatabase;
-
+    private DatabaseReference mDatabase2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         btnIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
+                    ReadFromDatabase2();
                 ReadFromDatabase();
                 }
                 catch(Exception e)
@@ -57,6 +58,22 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void ReadFromDatabase2() {
+        mDatabase2 = FirebaseDatabase.getInstance().getReference("password");
+        mDatabase2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                txtPass = dataSnapshot1.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError1) {
+
+            }
+        });
+    }
+
+
     private void ReadFromDatabase() {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("user");
@@ -68,9 +85,11 @@ public class LoginActivity extends AppCompatActivity {
                 String name = dataSnapshot.getValue().toString();
 
 
-                if (!txtcorreo.getText().toString().equals(name)) {
+                if (txtcorreo.getText().toString().equals(name)) {
 
-                    if (!txtcontra.getText().toString().equals("")) {
+                    //Toast.makeText(LoginActivity.this.getApplicationContext(),name, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this.getApplicationContext(),txtPass, Toast.LENGTH_SHORT).show();
+                    if (txtcontra.getText().toString().equals(txtPass)) {
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         //txtcorreo.setText("");
