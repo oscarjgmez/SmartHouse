@@ -1,9 +1,11 @@
 package jellyloment.smarthouse.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,15 +18,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
 import jellyloment.smarthouse.R;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnIn, btnReg;
     private EditText txtcorreo,txtcontra;
-    private String txtMail,txtPass;
 
     private DatabaseReference mDatabase;
-    private DatabaseReference mDatabase2;
+
+    private String linea = "", usuario = "", led1 = "", led2 = "", led3 = "", led4 = "";
+    private String[] config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         btnIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    ReadFromDatabase2();
-                ReadFromDatabase();
+                    ReadFromDatabase();
                 }
                 catch(Exception e)
                 {
-
-                  Toast.makeText(getApplicationContext(),"Huvo un problema con la base de datos",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Huvo un problema con la base de datos",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -58,48 +63,35 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void ReadFromDatabase2() {
-        mDatabase2 = FirebaseDatabase.getInstance().getReference("password");
-        mDatabase2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                txtPass = dataSnapshot1.getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError1) {
-
-            }
-        });
-    }
-
-
     private void ReadFromDatabase() {
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("user");
-
+        mDatabase = FirebaseDatabase.getInstance().getReference(txtcorreo.getText().toString()).child("password");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String valor = dataSnapshot.getValue().toString();
+                if (txtcontra.getText().toString().equals(valor)) {
+                    try{
+                        BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("usuario_iniciado.txt")));
 
-                String name = dataSnapshot.getValue().toString();
+                        linea = fin.readLine();
+                        config = linea.split(",");
+                        usuario = config[0];
+                        led1 = config[1];
+                        led2 = config[2];
+                        led3 = config[3];
+                        led4 = config[4];
+                        OutputStreamWriter fout = new OutputStreamWriter(openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
 
-
-                if (txtcorreo.getText().toString().equals(name)) {
-
-                    //Toast.makeText(LoginActivity.this.getApplicationContext(),name, Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(LoginActivity.this.getApplicationContext(),txtPass, Toast.LENGTH_SHORT).show();
-                    if (txtcontra.getText().toString().equals(txtPass)) {
-
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        //txtcorreo.setText("");
-                        txtcontra.setText("");
-                    } else {
-                        Toast.makeText(LoginActivity.this.getApplicationContext(), "Favor de insertar datos en ambos campos", Toast.LENGTH_SHORT).show();
+                        fout.write(usuario + "," + led1 + "," + led2 + "," + led3 + "," +led4);
+                        fout.close();
                     }
+                    catch (Exception ex)
+                    {
+                        Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+                    }
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 } else {
-                    Toast.makeText(LoginActivity.this.getApplicationContext(), "Favor de insertar datos en ambos campos", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(LoginActivity.this.getApplicationContext(), "Error en credenciales", Toast.LENGTH_SHORT).show();
                 }
             }
                 @Override
