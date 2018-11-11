@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtcorreo,txtcontra;
 
     private DatabaseReference mDatabase;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private String linea = "", usuario = "", led1 = "", led2 = "", led3 = "", led4 = "";
     private String[] config;
@@ -71,18 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                 String valor = dataSnapshot.getValue().toString();
                 if (txtcontra.getText().toString().equals(valor)) {
                     try{
-                        BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("usuario_iniciado.txt")));
-
-                        linea = fin.readLine();
-                        config = linea.split(",");
-                        usuario = config[0];
-                        led1 = config[1];
-                        led2 = config[2];
-                        led3 = config[3];
-                        led4 = config[4];
+                        usuario = txtcorreo.getText().toString();
                         OutputStreamWriter fout = new OutputStreamWriter(openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
 
-                        fout.write(usuario + "," + led1 + "," + led2 + "," + led3 + "," +led4);
+                        fout.write(usuario);
                         fout.close();
                     }
                     catch (Exception ex)

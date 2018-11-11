@@ -40,6 +40,31 @@ public class RegistroActivity extends AppCompatActivity {
                 myRef.setValue(edtPass.getText().toString());
                 DatabaseReference myRefC = database.getReference("" + usuarioNuevo).child("colonia");
                 myRefC.setValue(edtCol.getText().toString());
+
+                DatabaseReference sim = database.getReference(usuarioNuevo).child("Simulacion");
+                sim.setValue("0");
+
+                DatabaseReference led1 = database.getReference(usuarioNuevo).child("Focos").child("Foco1");
+                DatabaseReference led2 = database.getReference(usuarioNuevo).child("Focos").child("Foco2");
+                DatabaseReference led3 = database.getReference(usuarioNuevo).child("Focos").child("Foco3");
+                DatabaseReference led4 = database.getReference(usuarioNuevo).child("Focos").child("Foco4");
+                led1.setValue("false");
+                led2.setValue("false");
+                led3.setValue("false");
+                led4.setValue("false");
+
+                DatabaseReference coc = database.getReference(usuarioNuevo).child("Sensores").child("Cocina");
+                DatabaseReference cua = database.getReference(usuarioNuevo).child("Sensores").child("Cuarto");
+                DatabaseReference pue = database.getReference(usuarioNuevo).child("Sensores").child("Puerta");
+                DatabaseReference pueIO = database.getReference(usuarioNuevo).child("Sensores").child("PuertaIO");
+                DatabaseReference ven = database.getReference(usuarioNuevo).child("Sensores").child("Ventana");
+                DatabaseReference venIO = database.getReference(usuarioNuevo).child("Sensores").child("VentanaIO");
+                coc.setValue("false");
+                cua.setValue("false");
+                pue.setValue("false");
+                pueIO.setValue("false");
+                ven.setValue("false");
+                venIO.setValue("false");
             }
         });
     }

@@ -2,8 +2,10 @@ package jellyloment.smarthouse.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,9 +30,13 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import jellyloment.smarthouse.Activities.LoginActivity;
 import jellyloment.smarthouse.Activities.MainActivity;
 import jellyloment.smarthouse.R;
 
@@ -41,8 +47,8 @@ import jellyloment.smarthouse.R;
 public class LightFragment extends Fragment {
 
     private Switch swLED1, swLED2, swLED3, swLED4;
-    private String linea = "", usuario = "", led1 = "", led2 = "", led3 = "", led4 = "";
-    private String[] config;
+    private String usuario = "";
+    private DatabaseReference mDatabase;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public LightFragment() {
@@ -53,130 +59,101 @@ public class LightFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_light, container, false);
-        swLED1 = v.findViewById(R.id.swFoco1);
-        swLED2 = v.findViewById(R.id.swFoco2);
-        swLED3 = v.findViewById(R.id.swFoco3);
-        swLED4 = v.findViewById(R.id.swFoco4);
 
-        try
-        {
+        try{
+
+            swLED1 = v.findViewById(R.id.swFoco1);
+            swLED2 = v.findViewById(R.id.swFoco2);
+            swLED3 = v.findViewById(R.id.swFoco3);
+            swLED4 = v.findViewById(R.id.swFoco4);
+
             BufferedReader fin = new BufferedReader(new InputStreamReader(getContext().openFileInput("usuario_iniciado.txt")));
 
-            linea = fin.readLine();
-            config = linea.split(",");
-            usuario = config[0];
+            usuario = fin.readLine();
             fin.close();
 
-            if (config[1].equals("True"))
-                swLED1.setChecked(true);
-            if (config[2].equals("True"))
-                swLED2.setChecked(true);
-            if (config[3].equals("True"))
-                swLED3.setChecked(true);
-            if (config[4].equals("True"))
-                swLED4.setChecked(true);
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Foco1");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String valor = dataSnapshot.getValue().toString();
+                    if (valor.equals("true"))
+                        swLED1.setChecked(true);
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Foco2");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String valor = dataSnapshot.getValue().toString();
+                    if (valor.equals("true"))
+                        swLED2.setChecked(true);
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Foco3");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String valor = dataSnapshot.getValue().toString();
+                    if (valor.equals("true"))
+                        swLED3.setChecked(true);
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Foco4");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String valor = dataSnapshot.getValue().toString();
+                    if (valor.equals("true"))
+                        swLED4.setChecked(true);
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+
+            swLED1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    DatabaseReference myRef = database.getReference(usuario).child("Focos").child("Foco1");
+                    myRef.setValue("" + isChecked);
+                }
+            });
+            swLED2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    DatabaseReference myRef = database.getReference(usuario).child("Focos").child("Foco2");
+                    myRef.setValue("" + isChecked);
+                }
+            });
+            swLED3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    DatabaseReference myRef = database.getReference(usuario).child("Focos").child("Foco3");
+                    myRef.setValue("" + isChecked);
+                }
+            });
+            swLED4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    DatabaseReference myRef = database.getReference(usuario).child("Focos").child("Foco4");
+                    myRef.setValue("" + isChecked);
+                }
+            });
+        }catch (Exception ex){
+            Toast.makeText(getContext(), "Error en: " + ex, Toast.LENGTH_LONG).show();
         }
-        catch (Exception ex)
-        {
-            Log.e("Ficheros", "Error al leer fichero desde memoria interna");
-        }
-
-        swLED1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco1");
-                    myRef.setValue("True");
-                    led1 = "True";
-                } else {
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco1");
-                    myRef.setValue("False");
-                    led2 = "False";
-                }
-                try
-                {
-                    OutputStreamWriter fout = new OutputStreamWriter(getContext().openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
-
-                    fout.write(usuario + "," + led1 + "," + led2 + "," + led3 + "," +led4);
-                    fout.close();
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(getContext(), "Error al escribir fichero a memoria interna", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        swLED2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco2");
-                    myRef.setValue("True");
-                    led2 = "True";
-                } else {
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco2");
-                    myRef.setValue("False");
-                    led2 = "False";
-                }
-                try
-                {
-                    OutputStreamWriter fout = new OutputStreamWriter(getContext().openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
-
-                    fout.write(usuario + "," + led1 + "," + led2 + "," + led3 + "," +led4);
-                    fout.close();
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(getContext(), "Error al escribir fichero a memoria interna", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        swLED3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco3");
-                    myRef.setValue("True");
-                    led3 = "True";
-                } else {
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco3");
-                    myRef.setValue("False");
-                    led3 = "False";
-                }
-                try
-                {
-                    OutputStreamWriter fout = new OutputStreamWriter(getContext().openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
-
-                    fout.write(usuario + "," + led1 + "," + led2 + "," + led3 + "," +led4);
-                    fout.close();
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(getContext(), "Error al escribir fichero a memoria interna", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        swLED4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco4");
-                    myRef.setValue("True");
-                    led4 = "True";
-                } else {
-                    DatabaseReference myRef = database.getReference(usuario).child("Foco4");
-                    myRef.setValue("False");
-                    led4 = "False";
-                }
-                try
-                {
-                    OutputStreamWriter fout = new OutputStreamWriter(getContext().openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
-
-                    fout.write(usuario + "," + led1 + "," + led2 + "," + led3 + "," +led4);
-                    fout.close();
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(getContext(), "Error al escribir fichero a memoria interna", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
         return v;
     }
 

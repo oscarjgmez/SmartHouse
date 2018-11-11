@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/on_off"
+        android:id="@+id/simulacion_1"
         android:orderInCategory="100"
-        android:title="@string/onoff"
+        android:title="@string/sim1"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/sensor_mov"
+        android:id="@+id/simulacion_2"
         android:orderInCategory="100"
-        android:title="@string/sensor_mov"
+        android:title="@string/sim2"
         app:showAsAction="never" />
 </menu>
