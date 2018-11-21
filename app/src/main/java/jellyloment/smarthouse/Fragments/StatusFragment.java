@@ -36,7 +36,7 @@ public class StatusFragment extends Fragment {
     private ImageView imvCasa;
     private Switch swPuerta, swVentana;
     private String linea = "", usuario = "", puerta = "", ventana = "", io = "", foco1 = "", foco2 = "", foco3 ="", foco4 = "";
-    private int foquitos = 0, sensores = 0;
+    private int foquitos = 0, sensores = 0, contSenPuer = 0, contSenVen = 0;
     private String[] config;
 
     private DatabaseReference mDatabaseP, mDatabaseV, mDatabaseF1, mDatabaseF2, mDatabaseF3, mDatabaseF4, mDatabaseIOP, mDatabaseIOV;
@@ -78,13 +78,24 @@ public class StatusFragment extends Fragment {
         mDatabaseP.addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 puerta = dataSnapshot.getValue().toString();
+                if (puerta.equals("desactivado")){
+                    txvPuerta.setText("El sensor está desactivado");
+                    contSenPuer = 1;
+                    if (sensores > 0)
+                        sensores--;
+                }
                 if (puerta.equals("true")){
                     txvPuerta.setText("La puerta se encuentra sellada");
-                    sensores++;
-                }else {
+                    if (sensores < 2)
+                        sensores++;
+                    if (contSenPuer == 1)
+                        contSenPuer = 0;
+                }else if (puerta.equals("false")){
                     txvPuerta.setText("La puerta esta abierta!");
                     if (sensores > 0)
                         sensores--;
+                    if (contSenPuer == 1)
+                        contSenPuer = 0;
                 }
                 mostrar_texto_sensores();
             }
@@ -97,13 +108,24 @@ public class StatusFragment extends Fragment {
         mDatabaseV.addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ventana = dataSnapshot.getValue().toString();
-                if (ventana.equals("true")) {
+                if (ventana.equals("desactivado")){
+                    txvVentana.setText("El sensor está desactivado");
+                    contSenVen = 1;
+                    if (sensores > 0)
+                        sensores--;
+                }
+                if (ventana.equals("true")){
                     txvVentana.setText("La ventana se encuentra sellada");
-                    sensores++;
-                }else {
+                    if (sensores < 2)
+                        sensores++;
+                    if (contSenVen == 1)
+                        contSenVen = 0;
+                }else if (ventana.equals("false")){
                     txvVentana.setText("La ventana esta abierta!");
                     if (sensores > 0)
                         sensores--;
+                    if (contSenVen == 1)
+                        contSenVen = 0;
                 }
                 mostrar_texto_sensores();
             }
@@ -183,8 +205,15 @@ public class StatusFragment extends Fragment {
         mDatabaseIOP.addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 io = dataSnapshot.getValue().toString();
-                if (io.equals("true"))
+                if (io.equals("true")) {
                     swPuerta.setChecked(true);
+                    DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Puerta");
+                    myRef.setValue("true");
+                }else{
+                    swPuerta.setChecked(false);
+                    DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Puerta");
+                    myRef.setValue("desactivado");
+                }
             }
             @Override
             public void onCancelled (@NonNull DatabaseError databaseError){
@@ -195,8 +224,15 @@ public class StatusFragment extends Fragment {
         mDatabaseIOV.addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 io = dataSnapshot.getValue().toString();
-                if (io.equals("true"))
-                    swPuerta.setChecked(true);
+                if (io.equals("true")) {
+                    swVentana.setChecked(true);
+                    DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Ventana");
+                    myRef.setValue("true");
+                }else{
+                    swVentana.setChecked(false);
+                    DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Ventana");
+                    myRef.setValue("desactivado");
+                }
             }
             @Override
             public void onCancelled (@NonNull DatabaseError databaseError){
@@ -218,18 +254,26 @@ public class StatusFragment extends Fragment {
     }
 
     public void mostrar_texto_sensores() {
-        if (sensores == 2) {
+        if (sensores == 2 && contSenPuer == 0 && contSenVen == 0) {
             txvCasa.setText("Está todo en orden");
             int color = Color.parseColor("#FF1F8600");
             imvCasa.setColorFilter(color);
-        }else if (sensores == 1) {
-            txvCasa.setText("No está totalmente sellada la casa");
-            int color = Color.parseColor("#FFC45200");
-            imvCasa.setColorFilter(color);
-        }else {
-            txvCasa.setText("Ni la puerta ni la ventana estan selladas");
-            int color = Color.parseColor("#FFA10000");
-            imvCasa.setColorFilter(color);
+        } else if (sensores == 1) {
+            if ((contSenPuer == 0 && contSenVen == 1) || (contSenPuer == 1 && contSenVen == 0)){
+                txvCasa.setText("Están los sensores parcialmente activados");
+                int color = Color.parseColor("#FF1F8600");
+                imvCasa.setColorFilter(color);
+            } else {
+                txvCasa.setText("No está totalmente sellada la casa");
+                int color = Color.parseColor("#FFC45200");
+                imvCasa.setColorFilter(color);
+            }
+        }else if (sensores == 0){
+            if ((contSenPuer == 0 && contSenVen == 1) || (contSenPuer == 1 && contSenVen == 0)) {
+                txvCasa.setText("Ni la puerta ni la ventana estan selladas");
+                int color = Color.parseColor("#FFA10000");
+                imvCasa.setColorFilter(color);
+            }
         }
     }
 }

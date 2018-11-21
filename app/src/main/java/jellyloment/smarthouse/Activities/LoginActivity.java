@@ -31,8 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    private String linea = "", usuario = "", led1 = "", led2 = "", led3 = "", led4 = "";
-    private String[] config;
+    private String usuario = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

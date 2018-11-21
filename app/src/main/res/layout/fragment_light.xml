@@ -17,8 +17,8 @@
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04"
-        tools:layout_editor_absoluteX="38dp" />
+        app:layout_constraintVertical_bias="0.014"
+        tools:layout_editor_absoluteX="16dp" />
 
     <ImageView
         android:id="@+id/imgvFoco2"
@@ -29,8 +29,8 @@
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgvFoco1"
-        app:layout_constraintVertical_bias="0.08"
-        tools:layout_editor_absoluteX="38dp" />
+        app:layout_constraintVertical_bias="0.044"
+        tools:layout_editor_absoluteX="16dp" />
 
     <ImageView
         android:id="@+id/imgvFoco3"
@@ -41,44 +41,20 @@
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgvFoco2"
-        app:layout_constraintVertical_bias="0.074"
-        tools:layout_editor_absoluteX="38dp" />
+        app:layout_constraintVertical_bias="0.03"
+        tools:layout_editor_absoluteX="16dp" />
 
     <ImageView
         android:id="@+id/imgvFoco4"
         android:layout_width="48dp"
-        android:layout_height="49dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgvFoco3"
-        app:layout_constraintVertical_bias="0.106"
-        tools:layout_editor_absoluteX="38dp" />
-
-    <ImageView
-        android:id="@+id/imgvFoco5"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_lightbulb_outline_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgvFoco4"
-        app:layout_constraintVertical_bias="0.187"
-        tools:layout_editor_absoluteX="38dp" />
-
-    <ImageView
-        android:id="@+id/imgvFoco6"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_lightbulb_outline_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgvFoco5"
-        app:layout_constraintVertical_bias="0.657"
-        tools:layout_editor_absoluteX="38dp" />
+        app:layout_constraintVertical_bias="0.066"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Switch
         android:id="@+id/swFoco1"
@@ -146,137 +122,4 @@
         app:layout_constraintTop_toTopOf="@+id/imgvFoco4"
         app:layout_constraintVertical_bias="0.363" />
 
-    <Switch
-        android:id="@+id/swFoco5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Foco 5"
-        app:layout_constraintBottom_toBottomOf="@+id/imgvFoco5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toEndOf="@+id/imgvFoco5"
-        app:layout_constraintTop_toTopOf="@+id/imgvFoco5"
-        app:layout_constraintVertical_bias="0.454" />
-
-    <Switch
-        android:id="@+id/swFoco6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Foco 6"
-        app:layout_constraintBottom_toBottomOf="@+id/imgvFoco6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toEndOf="@+id/imgvFoco6"
-        app:layout_constraintTop_toTopOf="@+id/imgvFoco6"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <SeekBar
-        android:id="@+id/sbFoco1"
-        android:layout_width="343dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgvFoco2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swFoco1"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <SeekBar
-        android:id="@+id/sbFoco2"
-        android:layout_width="343dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgvFoco3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swFoco2"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <SeekBar
-        android:id="@+id/sbFoco3"
-        android:layout_width="343dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgvFoco4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swFoco3"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <SeekBar
-        android:id="@+id/sbFoco4"
-        android:layout_width="343dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgvFoco5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swFoco4"
-        app:layout_constraintVertical_bias="0.375" />
-
-    <SeekBar
-        android:id="@+id/sbFoco5"
-        android:layout_width="343dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgvFoco6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swFoco5"
-        app:layout_constraintVertical_bias="0.093" />
-
-    <SeekBar
-        android:id="@+id/sbFoco6"
-        android:layout_width="343dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swFoco6"
-        app:layout_constraintVertical_bias="0.636" />
 </android.support.constraint.ConstraintLayout>

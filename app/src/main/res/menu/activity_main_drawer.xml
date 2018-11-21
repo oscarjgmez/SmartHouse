@@ -32,6 +32,10 @@
                 android:id="@+id/nav_info"
                 android:icon="@drawable/ic_info_black_24dp"
                 android:title="Sobre nosotros" />
+            <item
+                android:id="@+id/cerrar_sesion"
+                android:icon="@drawable/ic_cloud_off_black_24dp"
+                android:title="Cerrar sesión" />
         </menu>
     </item>
 

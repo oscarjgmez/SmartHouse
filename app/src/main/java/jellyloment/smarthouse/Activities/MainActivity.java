@@ -198,6 +198,19 @@ public class MainActivity extends AppCompatActivity
                 miFragment = new InfoFragment();
                 fragmentSeleccionado = true;
                 break;
+            case R.id.cerrar_sesion:
+                try{
+                    OutputStreamWriter fout = new OutputStreamWriter(openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
+
+                    fout.write("");
+                    fout.close();
+                }
+                catch (Exception ex)
+                {
+                    Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+                }
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                break;
         }
         ActionBar actionBar = getSupportActionBar();
         // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
