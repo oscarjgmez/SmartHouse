@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.ConfiguracionFragment">
+
+    <Button
+        android:id="@+id/btnSimulacion1Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Aleatoria"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtFoco4conf" />
+
+    <Button
+        android:id="@+id/btnSimulacion2Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="0dp"
+        android:text="Programada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvSimulacionConf" />
+
+    <Button
+        android:id="@+id/btnSimulacion3Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Apagada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSimulacion1Conf" />
+
+    <TextView
+        android:id="@+id/txvSimulacionConf"
+        android:layout_width="243dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Simulación y configuración"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imvFoco1conf"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_lightbulb_outline_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSimulacion2Conf" />
+
+    <ImageView
+        android:id="@+id/imvFoco2conf"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_lightbulb_outline_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtFoco1conf" />
+
+    <ImageView
+        android:id="@+id/imvFoco3conf"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_lightbulb_outline_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtFoco2conf" />
+
+    <ImageView
+        android:id="@+id/imvFoco4conf"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_lightbulb_outline_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtFoco3conf" />
+
+    <EditText
+        android:id="@+id/edtFoco1conf"
+        android:layout_width="245dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Foco1"
+        app:layout_constraintStart_toEndOf="@+id/imvFoco1conf"
+        app:layout_constraintTop_toBottomOf="@+id/btnSimulacion2Conf" />
+
+    <EditText
+        android:id="@+id/edtFoco2conf"
+        android:layout_width="245dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Foco2"
+        app:layout_constraintStart_toEndOf="@+id/imvFoco2conf"
+        app:layout_constraintTop_toBottomOf="@+id/edtFoco1conf" />
+
+    <EditText
+        android:id="@+id/edtFoco3conf"
+        android:layout_width="245dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Foco3"
+        app:layout_constraintStart_toEndOf="@+id/imvFoco3conf"
+        app:layout_constraintTop_toBottomOf="@+id/edtFoco2conf" />
+
+    <EditText
+        android:id="@+id/edtFoco4conf"
+        android:layout_width="245dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Foco4"
+        app:layout_constraintStart_toEndOf="@+id/imvFoco4conf"
+        app:layout_constraintTop_toBottomOf="@+id/edtFoco3conf" />
+
+    <ImageButton
+        android:id="@+id/btnProgramar1Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/clock"
+        app:layout_constraintBottom_toBottomOf="@+id/edtFoco1conf"
+        app:layout_constraintEnd_toStartOf="@+id/txvProgF1Conf"
+        app:layout_constraintStart_toEndOf="@+id/edtFoco1conf" />
+
+    <ImageButton
+        android:id="@+id/btnProgramar2Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/clock"
+        app:layout_constraintBottom_toBottomOf="@+id/edtFoco2conf"
+        app:layout_constraintEnd_toStartOf="@+id/txvProgF2Conf"
+        app:layout_constraintStart_toEndOf="@+id/edtFoco2conf" />
+
+    <ImageButton
+        android:id="@+id/btnProgramar3Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/clock"
+        app:layout_constraintBottom_toBottomOf="@+id/edtFoco3conf"
+        app:layout_constraintEnd_toStartOf="@+id/txvProgF3Conf"
+        app:layout_constraintStart_toEndOf="@+id/edtFoco3conf" />
+
+    <ImageButton
+        android:id="@+id/btnProgramar4Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/clock"
+        app:layout_constraintBottom_toBottomOf="@+id/edtFoco4conf"
+        app:layout_constraintEnd_toStartOf="@+id/txvProgF4Conf"
+        app:layout_constraintStart_toEndOf="@+id/edtFoco4conf" />
+
+    <TextView
+        android:id="@+id/txvProgF1Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="00:00"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnProgramar1Conf" />
+
+    <TextView
+        android:id="@+id/txvProgF2Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="00:00"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnProgramar2Conf" />
+
+    <TextView
+        android:id="@+id/txvProgF3Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="00:00"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnProgramar3Conf" />
+
+    <TextView
+        android:id="@+id/txvProgF4Conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="00:00"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnProgramar4Conf" />
+
+</android.support.constraint.ConstraintLayout>

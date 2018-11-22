@@ -33,7 +33,7 @@ import jellyloment.smarthouse.R;
 public class StatusFragment extends Fragment {
 
     private TextView txvPuerta, txvVentana, txvFocos, txvCamara, txvCasa;
-    private ImageView imvCasa;
+    private ImageView imvCasa, imvPuertas, imvVentanas, imvFocos;
     private Switch swPuerta, swVentana;
     private String linea = "", usuario = "", puerta = "", ventana = "", io = "", foco1 = "", foco2 = "", foco3 ="", foco4 = "";
     private int foquitos = 0, sensores = 0, contSenPuer = 0, contSenVen = 0;
@@ -59,6 +59,9 @@ public class StatusFragment extends Fragment {
         txvCasa = v.findViewById(R.id.txvEstadoE);
 
         imvCasa = v.findViewById(R.id.imgvEstado);
+        imvPuertas = v.findViewById(R.id.imgvDoorE);
+        imvVentanas = v.findViewById(R.id.imgvVentanaE);
+        imvFocos = v.findViewById(R.id.imgvFocosE);
 
         swPuerta = v.findViewById(R.id.swPuertas);
         swVentana = v.findViewById(R.id.swVentanas);
@@ -190,12 +193,20 @@ public class StatusFragment extends Fragment {
 
         swPuerta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    imvPuertas.setImageResource(R.drawable.puerta_cerrada);
+                else
+                    imvPuertas.setImageResource(R.drawable.puerta_abierta);
                 DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("PuertaIO");
                 myRef.setValue("" + isChecked);
             }
         });
         swVentana.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    imvVentanas.setImageResource(R.drawable.ventana_cerrada);
+                else
+                    imvVentanas.setImageResource(R.drawable.ventana_abierta);
                 DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("VentanaIO");
                 myRef.setValue("" + isChecked);
             }
@@ -206,10 +217,12 @@ public class StatusFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 io = dataSnapshot.getValue().toString();
                 if (io.equals("true")) {
+                    imvPuertas.setImageResource(R.drawable.puerta_cerrada);
                     swPuerta.setChecked(true);
                     DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Puerta");
                     myRef.setValue("true");
                 }else{
+                    imvPuertas.setImageResource(R.drawable.puerta_abierta);
                     swPuerta.setChecked(false);
                     DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Puerta");
                     myRef.setValue("desactivado");
@@ -225,10 +238,12 @@ public class StatusFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 io = dataSnapshot.getValue().toString();
                 if (io.equals("true")) {
+                    imvVentanas.setImageResource(R.drawable.ventana_cerrada);
                     swVentana.setChecked(true);
                     DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Ventana");
                     myRef.setValue("true");
                 }else{
+                    imvVentanas.setImageResource(R.drawable.ventana_abierta);
                     swVentana.setChecked(false);
                     DatabaseReference myRef = databaseE.getReference(usuario).child("Sensores").child("Ventana");
                     myRef.setValue("desactivado");
@@ -249,30 +264,33 @@ public class StatusFragment extends Fragment {
                 txvFocos.setText("Hay solo un foco prendido");
             else
                 txvFocos.setText("Hay " + foquitos + " prendidos");
-        }else
+            imvFocos.setImageResource(R.drawable.foco_prendido);
+        }else {
             txvFocos.setText("Estan todos los focos apagados");
+            imvFocos.setImageResource(R.drawable.foco_apagado);
+        }
     }
 
     public void mostrar_texto_sensores() {
         if (sensores == 2 && contSenPuer == 0 && contSenVen == 0) {
             txvCasa.setText("Está todo en orden");
-            int color = Color.parseColor("#FF1F8600");
-            imvCasa.setColorFilter(color);
+            int verde = Color.parseColor("#FF1F8600");
+            imvCasa.setColorFilter(verde);
         } else if (sensores == 1) {
             if ((contSenPuer == 0 && contSenVen == 1) || (contSenPuer == 1 && contSenVen == 0)){
                 txvCasa.setText("Están los sensores parcialmente activados");
-                int color = Color.parseColor("#FF1F8600");
-                imvCasa.setColorFilter(color);
+                int verde = Color.parseColor("#FF1F8600");
+                imvCasa.setColorFilter(verde);
             } else {
                 txvCasa.setText("No está totalmente sellada la casa");
-                int color = Color.parseColor("#FFC45200");
-                imvCasa.setColorFilter(color);
+                int naranja = Color.parseColor("#FFC45200");
+                imvCasa.setColorFilter(naranja);
             }
         }else if (sensores == 0){
             if ((contSenPuer == 0 && contSenVen == 1) || (contSenPuer == 1 && contSenVen == 0)) {
                 txvCasa.setText("Ni la puerta ni la ventana estan selladas");
-                int color = Color.parseColor("#FFA10000");
-                imvCasa.setColorFilter(color);
+                int rojo = Color.parseColor("#FFA10000");
+                imvCasa.setColorFilter(rojo);
             }
         }
     }

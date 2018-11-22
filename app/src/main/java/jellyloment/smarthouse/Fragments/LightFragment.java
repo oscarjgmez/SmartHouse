@@ -27,6 +27,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ import jellyloment.smarthouse.R;
 public class LightFragment extends Fragment {
 
     private Switch swLED1, swLED2, swLED3, swLED4;
+    private ImageView imgvFoco1, imgvFoco2, imgvFoco3, imgvFoco4;
     private String usuario = "";
     private DatabaseReference mDatabase;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -66,6 +68,10 @@ public class LightFragment extends Fragment {
             swLED2 = v.findViewById(R.id.swFoco2);
             swLED3 = v.findViewById(R.id.swFoco3);
             swLED4 = v.findViewById(R.id.swFoco4);
+            imgvFoco1 = v.findViewById(R.id.imgvFoco1);
+            imgvFoco2 = v.findViewById(R.id.imgvFoco2);
+            imgvFoco3 = v.findViewById(R.id.imgvFoco3);
+            imgvFoco4 = v.findViewById(R.id.imgvFoco4);
 
             BufferedReader fin = new BufferedReader(new InputStreamReader(getContext().openFileInput("usuario_iniciado.txt")));
 
@@ -77,8 +83,12 @@ public class LightFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String valor = dataSnapshot.getValue().toString();
-                    if (valor.equals("true"))
+                    if (valor.equals("true")) {
                         swLED1.setChecked(true);
+                        imgvFoco1.setImageResource(R.drawable.foco_prendido);
+                    } else {
+                        imgvFoco1.setImageResource(R.drawable.foco_apagado);
+                    }
                 }
                 @Override
                 public void onCancelled (@NonNull DatabaseError databaseError){
@@ -91,8 +101,12 @@ public class LightFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String valor = dataSnapshot.getValue().toString();
-                    if (valor.equals("true"))
+                    if (valor.equals("true")) {
                         swLED2.setChecked(true);
+                        imgvFoco2.setImageResource(R.drawable.foco_prendido);
+                    } else {
+                        imgvFoco2.setImageResource(R.drawable.foco_apagado);
+                    }
                 }
                 @Override
                 public void onCancelled (@NonNull DatabaseError databaseError){
@@ -104,8 +118,12 @@ public class LightFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String valor = dataSnapshot.getValue().toString();
-                    if (valor.equals("true"))
+                    if (valor.equals("true")) {
                         swLED3.setChecked(true);
+                        imgvFoco3.setImageResource(R.drawable.foco_prendido);
+                    } else {
+                        imgvFoco3.setImageResource(R.drawable.foco_apagado);
+                    }
                 }
                 @Override
                 public void onCancelled (@NonNull DatabaseError databaseError){
@@ -118,8 +136,60 @@ public class LightFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String valor = dataSnapshot.getValue().toString();
-                    if (valor.equals("true"))
+                    if (valor.equals("true")) {
                         swLED4.setChecked(true);
+                        imgvFoco4.setImageResource(R.drawable.foco_prendido);
+                    } else {
+                        imgvFoco4.setImageResource(R.drawable.foco_apagado);
+                    }
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Nombre1");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String foco1 = dataSnapshot.getValue().toString();
+                    swLED1.setText(foco1);
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Nombre2");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String foco2 = dataSnapshot.getValue().toString();
+                    swLED2.setText(foco2);
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Nombre3");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String foco3 = dataSnapshot.getValue().toString();
+                    swLED3.setText(foco3);
+                }
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+            });
+
+            mDatabase = FirebaseDatabase.getInstance().getReference(usuario).child("Focos").child("Nombre4");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String foco4 = dataSnapshot.getValue().toString();
+                    swLED4.setText(foco4);
                 }
                 @Override
                 public void onCancelled (@NonNull DatabaseError databaseError){

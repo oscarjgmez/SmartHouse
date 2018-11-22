@@ -2,6 +2,8 @@ package jellyloment.smarthouse.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -32,6 +34,7 @@ import java.io.OutputStreamWriter;
 
 import jellyloment.smarthouse.Fragments.AyudaFragment;
 import jellyloment.smarthouse.Fragments.CameraFragment;
+import jellyloment.smarthouse.Fragments.ConfiguracionFragment;
 import jellyloment.smarthouse.Fragments.LightFragment;
 import jellyloment.smarthouse.Fragments.InfoFragment;
 import jellyloment.smarthouse.R;
@@ -44,9 +47,9 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference mDatabaseS;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    private String usuario = "", linea = "";
+    private String usuario = "";
     private String[] config;
-    private boolean simulacion = false, sensor = false;
+    private boolean alarma = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,29 @@ public class MainActivity extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        try{
+            BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("usuario_iniciado.txt")));
+
+            usuario = fin.readLine();
+            fin.close();
+        }catch (Exception ex){
+            Toast.makeText(this, "Error al leer fichero a memoria interna", Toast.LENGTH_LONG).show();
+        }
+
+        final FloatingActionButton fab = findViewById(R.id.fabAlarma);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                DatabaseReference myRef = database.getReference(usuario).child("Alarma");
+                if (!alarma){
+                    alarma = true;
+                    myRef.setValue("true");
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+                } else {
+                    alarma = false;
+                    myRef.setValue("false");
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+                }
             }
         });
 
@@ -74,8 +94,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Cuando inicia, se ven las camaras
-        String sTitle = "Camaras";
-        Fragment miFragment = new CameraFragment();
+        String sTitle = "Estado";
+        Fragment miFragment = new StatusFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main,miFragment).commit();
         ActionBar actionBar = getSupportActionBar();
         // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -96,7 +116,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -106,54 +126,41 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        try{
-            BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("usuario_iniciado.txt")));
-
-            linea = fin.readLine();
-            config = linea.split(",");
-            usuario = config[0];
-            fin.close();
-        }catch (Exception ex){
-            Toast.makeText(this, "Error al leer fichero a memoria interna", Toast.LENGTH_LONG).show();
-        }
-
-
 
         //noinspection SimplifiableIfStatement4
-        switch (id) {
-            case R.id.simulacion_1:
-                if (simulacion == false) {
-                    Toast.makeText(this, "Simulación activada", Toast.LENGTH_LONG).show();
-                    simulacion = true;
-                    sensor = false;
-                } else if(simulacion == true)  {
-                    Toast.makeText(this, "Simulación desactivada", Toast.LENGTH_LONG).show();
-                    simulacion = false;
-                }
-                break;
-            case R.id.simulacion_2:
-                if (sensor == false) {
-                    Toast.makeText(this, "Sensor activado", Toast.LENGTH_LONG).show();
-                    sensor = true;
-                    simulacion = false;
-                } else if(sensor == true)  {
-                    Toast.makeText(this, "Sensor desactivado", Toast.LENGTH_LONG).show();
-                    sensor = false;
-                }
-                break;
-        }
-
-        if (simulacion == true){
-            DatabaseReference myRef = database.getReference(usuario).child("Simulacion");
-            myRef.setValue("1");
-        } else if (sensor == true){
-            DatabaseReference myRef = database.getReference(usuario).child("Simulacion");
-            myRef.setValue("2");
-        } else {
-            DatabaseReference myRef = database.getReference(usuario).child("Simulacion");
-            myRef.setValue("0");
-        }
-
+//        switch (id) {
+//            case R.id.simulacion_1:
+//                if (simulacion == false) {
+//                    Toast.makeText(this, "Simulación activada", Toast.LENGTH_LONG).show();
+//                    simulacion = true;
+//                    sensor = false;
+//                } else if(simulacion == true)  {
+//                    Toast.makeText(this, "Simulación desactivada", Toast.LENGTH_LONG).show();
+//                    simulacion = false;
+//                }
+//                break;
+//            case R.id.simulacion_2:
+//                if (sensor == false) {
+//                    Toast.makeText(this, "Sensor activado", Toast.LENGTH_LONG).show();
+//                    sensor = true;
+//                    simulacion = false;
+//                } else if(sensor == true)  {
+//                    Toast.makeText(this, "Sensor desactivado", Toast.LENGTH_LONG).show();
+//                    sensor = false;
+//                }
+//                break;
+//        }
+//
+//        if (simulacion == true){
+//            DatabaseReference myRef = database.getReference(usuario).child("Simulacion");
+//            myRef.setValue("1");
+//        } else if (sensor == true){
+//            DatabaseReference myRef = database.getReference(usuario).child("Simulacion");
+//            myRef.setValue("2");
+//        } else {
+//            DatabaseReference myRef = database.getReference(usuario).child("Simulacion");
+//            myRef.setValue("0");
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -184,9 +191,9 @@ public class MainActivity extends AppCompatActivity
                 fragmentSeleccionado = true;
                 break;
             case R.id.nav_config:
-                //sTitle = "Focos";
-                //miFragment = new LightFragment();
-                //fragmentSeleccionado = true;
+                sTitle = "Configuración";
+                miFragment = new ConfiguracionFragment();
+                fragmentSeleccionado = true;
                 break;
             case R.id.nav_help:
                 sTitle = "Ayuda";
