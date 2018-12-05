@@ -228,13 +228,13 @@ public class ConfiguracionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre1");
-                myRef.setValue(edtFoco1.getText().toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre1");
+                myRef.setValue(edtFoco1.getText().toString());
             }
         });
 
@@ -246,13 +246,13 @@ public class ConfiguracionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre2");
-                myRef.setValue(edtFoco2.getText().toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre2");
+                myRef.setValue(edtFoco2.getText().toString());
             }
         });
 
@@ -264,13 +264,13 @@ public class ConfiguracionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre3");
-                myRef.setValue(edtFoco3.getText().toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre3");
+                myRef.setValue(edtFoco3.getText().toString());
             }
         });
 
@@ -282,13 +282,13 @@ public class ConfiguracionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre4");
-                myRef.setValue(edtFoco4.getText().toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                DatabaseReference myRef = databaseE.getReference(usuario).child("Focos").child("Nombre4");
+                myRef.setValue(edtFoco4.getText().toString());
             }
         });
 

@@ -11,6 +11,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.VideoView;
 
 import jellyloment.smarthouse.R;
@@ -21,9 +25,10 @@ import jellyloment.smarthouse.R;
  */
 public class CameraFragment extends Fragment {
 
-    final static String URL = "http://192.168.1.73:8090/";
+    final static String URL = "http://192.168.1.80:8081/";
 
-    private VideoView piVideo;
+    private WebView mWebView;
+    private WebSettings webSettings;
 
 
     public CameraFragment() {
@@ -37,24 +42,13 @@ public class CameraFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_camera, container, false);
 
-        piVideo = v.findViewById(R.id.vidVCamera);
-
-        try{
-            piVideo.setVideoURI(Uri.parse(URL));
-        } catch (Exception e){
-            Log.e("Error found here->", e.getMessage());
-            e.printStackTrace();
-        }
-        piVideo.requestFocus();
-        piVideo.start();
-
-        piVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-
-            public void onPrepared(MediaPlayer mp) {
-                piVideo.start();
-            }
-        });
+        mWebView = v.findViewById(R.id.vidVCamera);
+        mWebView.setWebChromeClient(new WebChromeClient());
+        webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        mWebView.setWebViewClient(new WebViewClient());
+        webSettings.setLoadWithOverviewMode(true);
+        mWebView.loadUrl(URL);
 
         return v;
     }

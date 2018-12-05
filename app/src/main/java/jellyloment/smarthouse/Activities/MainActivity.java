@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference mDatabaseS;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    private String usuario = "";
+    private TextView txvUsuario, txvColonia;
+    private String usuario = "", colonia = "";
     private String[] config;
     private boolean alarma = false;
 
@@ -59,6 +61,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         try{
+            BufferedReader fin0 = new BufferedReader(new InputStreamReader(openFileInput("colonia_usuario.txt")));
+
+            colonia = fin0.readLine();
+            fin0.close();
             BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("usuario_iniciado.txt")));
 
             usuario = fin.readLine();
@@ -67,20 +73,81 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Error al leer fichero a memoria interna", Toast.LENGTH_LONG).show();
         }
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View v = navigationView.getHeaderView(0);
+
+        txvColonia = v.findViewById(R.id.txvDireccion);
+        txvUsuario = v.findViewById(R.id.txvNombreUsuario);
+
+        txvUsuario.setText(usuario);
+        txvColonia.setText(colonia);
+
         final FloatingActionButton fab = findViewById(R.id.fabAlarma);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        mDatabaseS = FirebaseDatabase.getInstance().getReference(usuario).child("Sensores").child("Puerta");
+        mDatabaseS.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String valor = dataSnapshot.getValue().toString();
+                if (valor.equals("true")){
+                    fab.setEnabled(true);
+                } else {
+                    fab.setEnabled(false);
+                }
+            }
             @Override
-            public void onClick(View view) {
+            public void onCancelled (@NonNull DatabaseError databaseError){
+
+            }
+        });
+        mDatabaseS = FirebaseDatabase.getInstance().getReference(usuario).child("Sensores").child("Ventana");
+        mDatabaseS.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String valor = dataSnapshot.getValue().toString();
+                if (valor.equals("true")){
+                    fab.setEnabled(true);
+                } else {
+                    fab.setEnabled(false);
+                }
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError databaseError){
+
+            }
+        });
+
+        mDatabaseS = FirebaseDatabase.getInstance().getReference(usuario).child("Alarma");
+        mDatabaseS.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String alarmaF = dataSnapshot.getValue().toString();
+                if (alarmaF.equals("true")){
+                    alarma = true;
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Naranja)));
+                } else {
+                    alarma = false;
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Gris)));
+                }
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError databaseError){
+
+            }
+        });
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
                 DatabaseReference myRef = database.getReference(usuario).child("Alarma");
                 if (!alarma){
                     alarma = true;
                     myRef.setValue("true");
-                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Naranja)));
+                    Snackbar.make(view, "Alarma activada", Snackbar.LENGTH_LONG).setAction("Nada", null).show();
                 } else {
                     alarma = false;
                     myRef.setValue("false");
-                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Gris)));
+                    Snackbar.make(view, "Alarma desactivada", Snackbar.LENGTH_LONG).setAction("Nada", null).show();
                 }
+                return false;
             }
         });
 
@@ -90,7 +157,6 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //Cuando inicia, se ven las camaras
@@ -106,11 +172,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        drawer.openDrawer(GravityCompat.START);
     }
 
     @Override

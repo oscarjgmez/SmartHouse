@@ -68,21 +68,21 @@ public class LoginActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String valor = dataSnapshot.getValue().toString();
-                if (txtcontra.getText().toString().equals(valor)) {
-                    try{
-                        usuario = txtcorreo.getText().toString();
-                        OutputStreamWriter fout = new OutputStreamWriter(openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
+                try{
+                    String valor = dataSnapshot.getValue().toString();
+                    if (txtcontra.getText().toString().equals(valor)) {
+                        try {
+                            usuario = txtcorreo.getText().toString();
+                            OutputStreamWriter fout = new OutputStreamWriter(openFileOutput("usuario_iniciado.txt", Context.MODE_PRIVATE));
 
-                        fout.write(usuario);
-                        fout.close();
+                            fout.write(usuario);
+                            fout.close();
+                        } catch (Exception ex) {
+                            Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+                        }
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
-                    catch (Exception ex)
-                    {
-                        Log.e("Ficheros", "Error al escribir fichero a memoria interna");
-                    }
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                } else {
+                } catch (Exception ex2) {
                     Toast.makeText(LoginActivity.this.getApplicationContext(), "Error en credenciales", Toast.LENGTH_SHORT).show();
                 }
             }

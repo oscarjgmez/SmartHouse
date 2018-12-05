@@ -93,12 +93,14 @@ public class StatusFragment extends Fragment {
                         sensores++;
                     if (contSenPuer == 1)
                         contSenPuer = 0;
+                    imvPuertas.setImageResource(R.drawable.puerta_cerrada);
                 }else if (puerta.equals("false")){
                     txvPuerta.setText("La puerta esta abierta!");
                     if (sensores > 0)
                         sensores--;
                     if (contSenPuer == 1)
                         contSenPuer = 0;
+                    imvPuertas.setImageResource(R.drawable.puerta_abierta);
                 }
                 mostrar_texto_sensores();
             }
@@ -123,12 +125,14 @@ public class StatusFragment extends Fragment {
                         sensores++;
                     if (contSenVen == 1)
                         contSenVen = 0;
+                    imvVentanas.setImageResource(R.drawable.ventana_cerrada);
                 }else if (ventana.equals("false")){
                     txvVentana.setText("La ventana esta abierta!");
                     if (sensores > 0)
                         sensores--;
                     if (contSenVen == 1)
                         contSenVen = 0;
+                    imvVentanas.setImageResource(R.drawable.ventana_abierta);
                 }
                 mostrar_texto_sensores();
             }

@@ -3,4 +3,9 @@
     <color name="colorPrimary">#005685</color>
     <color name="colorPrimaryDark">#003957</color>
     <color name="colorAccent">#dc5f35</color>
+
+    <color name="Naranja">#ff4000</color>
+    <color name="Rojo">#ff0900</color>
+    <color name="Gris">#585858</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

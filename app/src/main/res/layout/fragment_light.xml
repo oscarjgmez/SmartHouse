@@ -10,51 +10,59 @@
 
     <ImageView
         android:id="@+id/imgvFoco1"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintVertical_bias="0.015" />
 
     <ImageView
         android:id="@+id/imgvFoco2"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginLeft="200dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="340dp"
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgvFoco1"
-        app:layout_constraintVertical_bias="0.044"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imgvFoco3"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgvFoco2"
-        app:layout_constraintVertical_bias="0.03"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintVertical_bias="0.087" />
 
     <ImageView
         android:id="@+id/imgvFoco4"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginLeft="200dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="52dp"
         android:src="@drawable/ic_lightbulb_outline_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgvFoco3"
-        app:layout_constraintVertical_bias="0.066"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgvFoco2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Switch
         android:id="@+id/swFoco1"

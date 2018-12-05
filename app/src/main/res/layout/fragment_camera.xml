@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/vidVCamera"
         app:layout_constraintVertical_bias="0.039" />
 
-    <VideoView
+    <WebView
         android:id="@+id/vidVCamera"
         android:layout_width="400dp"
         android:layout_height="300dp"
